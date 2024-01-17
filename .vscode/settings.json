@@ -1,0 +1,11 @@
+{
+  "cSpell.words": [
+    "iife"
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "code-runner.executorMap": {
+    "javascript": "bun run",
+    "typescript": "bun run"
+  }
+}

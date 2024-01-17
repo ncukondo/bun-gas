@@ -1,0 +1,115 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
+
+exports[`convert-to-gas convertToGoogleAppsScript 1`] = `
+"var main = function(exports) {
+  "use strict";
+  const hello = "world";
+  const sayHello = (name) => {
+    console.log(\`Hello ${name}!\`);
+  };
+  exports.hello = hello;
+  exports.sayHello = sayHello;
+  Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+  return exports;
+}({});
+
+
+const hello = main.hello;
+function sayHello(...args){ return main.sayHello(...args);}
+"
+`;
