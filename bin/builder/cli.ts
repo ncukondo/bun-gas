@@ -1,9 +1,18 @@
 import { convertAndWriteGoogleAppsScript } from "./convert-to-gas";
-import packageInfo from "../package.json";
+import packageInfo from "../../package.json";
+import path from "path";
 
-const inputFile = process.argv[2];
-const outputFile = process.argv[3];
-const globalName = (process.argv[4] || packageInfo.name).replaceAll("-", "_");
+const packageInfoToGlobalName = (packageInfo: { name: string }) => {
+  return packageInfo.name.split("/").at(-1) || "";
+};
+
+const baseDirName = () => path.basename(process.cwd());
+
+const inputFile = path.resolve(process.argv[2]);
+
+const outputFile = path.resolve(process.argv[3]);
+const globalName =
+  (process.argv[4] || packageInfoToGlobalName(packageInfo)).replaceAll("-", "_") || baseDirName();
 
 if (!inputFile) {
   console.error("Please specify input file");

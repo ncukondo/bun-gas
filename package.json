@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run ./builder/cli.ts src/index.ts dist/index.js",
+    "build": "bun run ./bin/builder/cli.ts src/index.ts dist/index.js",
     "login": "bunx clasp login"
   },
   "devDependencies": {
