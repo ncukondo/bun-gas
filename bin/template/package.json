@@ -1,5 +1,5 @@
 {
-  "name": "bun-gas",
+  "name": "{name}",
   "module": "index.ts",
   "type": "module",
   "scripts": {

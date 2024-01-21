@@ -21,21 +21,21 @@ const build = async (filename: string, name: string) => {
   return code;
 };
 
-const extractEntryExports = (code: string, globalName: string) => {
-  const exports = new Function(`${code} return ${globalName}`)();
-  const isFunction = (x: unknown): x is (...args: unknown[]) => unknown => typeof x === "function";
-  return Object.entries(exports)
+const extractExportUsingDynamicImport = async (path: string, globalName: string) => {
+  const imported = await import(path);
+  const exports = Object.entries(imported)
     .map(([name, obj]) => {
-      return isFunction(obj)
+      return typeof obj === "function"
         ? `function ${name}(...args){ return ${globalName}.${name}(...args);}`
         : `const ${name} = ${globalName}.${name};`;
     })
     .join("\n");
+  return exports;
 };
 
 const convertToGoogleAppsScript = async (filename: string, globalName: string) => {
   const code = await build(filename, globalName);
-  const exports = extractEntryExports(code, globalName);
+  const exports = await extractExportUsingDynamicImport(filename, globalName);
   return `${code}\n\n${exports}\n`;
 };
 
