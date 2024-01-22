@@ -3,8 +3,11 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run ./builder/cli.ts src/index.ts dist/index.js",
-    "login": "bunx @google/clasp login"
+    "build": "bun run ./bin/builder/cli.ts src/index.ts dist/index.js",
+    "login": "bunx @google/clasp login",
+    "start": "bun run login",
+    "push": "bun run build & bunx @google/clasp push",
+    "deploy": "bun run build & bunx @google/clasp deploy"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
