@@ -13,7 +13,7 @@
     "open:prod": "bunx clasp open --prod"
   },
   "bun-create": {
-    "start": "bun run ./bin/init/index.ts"
+    "postinstall": "bun run ./bin/init/index.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
