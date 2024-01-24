@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run ./bin/build/cli.ts src/index.ts dist/index.js",
+    "build": "bun run ./bin/build.ts src/index.ts dist/index.js",
     "init": "bun run ./bin/init/index.ts",
     "deploy": "bun run ./bin/deploy.ts",
     "deploy:prod": "bun run ./bin/deploy.ts --prod",
