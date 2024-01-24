@@ -1,15 +1,19 @@
-# gsheet-curator
+# bun-gas
 
-To install dependencies:
+This is a simple template for a bun project for google apps script.
 
-```bash
-bun install
-```
-
-To run:
+To use this template:
 
 ```bash
-bun run index.ts
+bun create ncukondo/bun-gas my-project
+cd my-project
 ```
 
-This project was created using `bun init` in bun v1.0.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+To build:
+
+```bash
+bun run build
+```
+
+Default entry file is `src/index.js`. You can change this in `package.json`.
+All exported functions and variables in this file will be exposed as a google apps script function and variables.

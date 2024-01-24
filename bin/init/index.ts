@@ -23,16 +23,16 @@ const getProjectJson = async (defaultProjectName = "") => {
   });
   if (existingProjectId) return { scriptId: existingProjectId, rootDir: "./dist" };
   const choice = await select({
-    message: "Create new project?",
+    message: "What kind of project would you create?",
     choices: [
-      { name: "No", value: "no" },
-      { name: "Yes(standalone)", value: "standalone" },
-      { name: "Yes(bound to a Google Sheet)", value: "sheets" },
-      { name: "Yes(bound to a Google Doc)", value: "docs" },
-      { name: "Yes(bound to a Google Form)", value: "forms" },
-      { name: "Yes(bound to a Google Slides)", value: "slides" },
-      { name: "Yes(webapp)", value: "webapp" },
-      { name: "Yes(API executable)", value: "api" },
+      { name: "standalone", value: "standalone" },
+      { name: "bound to a Google Sheet", value: "sheets" },
+      { name: "bound to a Google Doc", value: "docs" },
+      { name: "bound to a Google Form", value: "forms" },
+      { name: "bound to a Google Slides", value: "slides" },
+      { name: "webapp", value: "webapp" },
+      { name: "API executable", value: "api" },
+      { name: "Do not create project(specify later).", value: "no" },
     ],
   });
   if (choice === "no") return null;
@@ -59,22 +59,38 @@ const getProjectJson = async (defaultProjectName = "") => {
 if (!checkLogin()) {
   await $`bunx clasp login`;
   if (!checkLogin()) {
-    console.log("Clasp login failed");
+    console.log("\nClasp login failed\n\n");
+    console.log(
+      "1. Please turn on Google Apps Script API(go https://script.google.com/home/usersettings ).",
+    );
+    console.log("2. `bun run init` again.\n\n");
     process.exit(1);
   }
 }
 
 const projectName = await getProjectName();
 const packageJson = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
-packageJson.name = projectName;
-fs.writeFileSync("./package.json", JSON.stringify(packageJson, null, 2));
+if (projectName !== packageJson.name) {
+  packageJson.name = projectName;
+  fs.writeFileSync("./package.json", JSON.stringify(packageJson, null, 2));
+}
 
 const claspJson = await getProjectJson(projectName);
 if (!claspJson) {
-  console.log("Please specify project ID or create new project later.");
+  console.log("Please specify project ID or create new project later using below.");
+  console.log("\n\nbun run init\n\n");
 } else {
   fs.writeFileSync("./.clasp.json", JSON.stringify(claspJson, null, 2));
   fs.writeFileSync("./.clasp-dev.json", JSON.stringify(claspJson, null, 2));
   fs.writeFileSync("./.clasp-prod.json", JSON.stringify(claspJson, null, 2));
   console.log("Project prepared.");
+  console.log(`Usage:
+  bun run build            // build project
+  bun run push             // push project to Google Apps Script using .clasp-dev.json
+  bun run push:prod        // push project to Google Apps Script using .clasp-prod.json
+  bun run deploy           // deploy project using .clasp-dev.json
+  bun run deploy:prod      // deploy project using .clasp-prod.json
+  bun run open             // open project in browser
+  bun run open:prod        // open project in browser(in .clasp-prod.json)
+`);
 }

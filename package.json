@@ -4,10 +4,16 @@
   "type": "module",
   "scripts": {
     "build": "bun run ./bin/build/cli.ts src/index.ts dist/index.js",
-    "login": "bunx clasp login"
+    "init": "bun run ./bin/init/index.ts",
+    "deploy": "bun run ./bin/deploy.ts",
+    "deploy:prod": "bun run ./bin/deploy.ts --prod",
+    "push": "bun run ./bin/push.ts",
+    "push:prod": "bun run ./bin/push.ts --prod",
+    "open": "bunx clasp open",
+    "open:prod": "bunx clasp open --prod"
   },
   "bun-create": {
-    "start": "bun run ./bin/start/index.ts"
+    "start": "bun run ./bin/init/index.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
