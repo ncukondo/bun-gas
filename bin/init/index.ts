@@ -1,4 +1,4 @@
-import { input, confirm, select, checkbox } from "@inquirer/prompts";
+import { question, select } from "@topcli/prompts";
 import fs from "fs-extra";
 import path from "path";
 import { $ } from "bun";
@@ -10,36 +10,27 @@ const checkLogin = () => fs.existsSync(clasprcPath);
 
 const getProjectName = async () => {
   const defaultProjectName = path.basename(process.cwd());
-  const projectName = await input({
-    message: "Project name",
-    default: defaultProjectName,
-  });
+  const projectName = await question("Project name", { defaultValue: defaultProjectName });
   return projectName;
 };
 
 const getProjectJson = async (defaultProjectName = "") => {
-  const existingProjectId = await input({
-    message: "Project ID(optional)",
-  });
+  const existingProjectId = await question("Project ID(optional)");
   if (existingProjectId) return { scriptId: existingProjectId, rootDir: "./dist" };
-  const choice = await select({
-    message: "What kind of project would you create?",
+  const choice = (await select("What kind of project would you create?", {
     choices: [
-      { name: "standalone", value: "standalone" },
-      { name: "bound to a Google Sheet", value: "sheets" },
-      { name: "bound to a Google Doc", value: "docs" },
-      { name: "bound to a Google Form", value: "forms" },
-      { name: "bound to a Google Slides", value: "slides" },
-      { name: "webapp", value: "webapp" },
-      { name: "API executable", value: "api" },
-      { name: "Do not create project(specify later).", value: "no" },
-    ],
-  });
+      { label: "standalone", value: "standalone" },
+      { label: "bound to a Google Sheet", value: "sheets" },
+      { label: "bound to a Google Doc", value: "docs" },
+      { label: "bound to a Google Form", value: "forms" },
+      { label: "bound to a Google Slides", value: "slides" },
+      { label: "webapp", value: "webapp" },
+      { label: "API executable", value: "api" },
+      { label: "Do not create project(specify later).", value: "no" },
+    ] as const,
+  })) as unknown as string;
   if (choice === "no") return null;
-  const projectName = await input({
-    message: "Project name",
-    default: defaultProjectName,
-  });
+  const projectName = await question("Project name", { defaultValue: defaultProjectName });
   ensureDirSync("./dist");
   await $`bunx clasp create --type ${choice} --title ${projectName} --rootDir ./dist`;
   if (fs.existsSync("./dist/appsscript.json")) {
