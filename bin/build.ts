@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import { $ } from "bun";
 import { convertAndWriteGoogleAppsScript } from "./build/convert-to-gas";
 import packageInfo from "../package.json";
@@ -26,7 +26,7 @@ if (!outputFile) {
   process.exit(1);
 }
 
-await $`rm -rf dist`;
-await $`mkdir dist`;
-await $`cp -r ./public/* ./dist/`;
+fs.ensureDirSync("./dist");
+fs.emptyDirSync("./dist");
+fs.copySync("./public", "./dist");
 await convertAndWriteGoogleAppsScript(inputFile, globalName, outputFile);

@@ -1,5 +1,5 @@
 import { input, confirm, select, checkbox } from "@inquirer/prompts";
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import { $ } from "bun";
 import { ensureDirSync } from "fs-extra";
@@ -43,14 +43,12 @@ const getProjectJson = async (defaultProjectName = "") => {
   ensureDirSync("./dist");
   await $`bunx clasp create --type ${choice} --title ${projectName} --rootDir ./dist`;
   if (fs.existsSync("./dist/appsscript.json")) {
-    fs.copyFileSync("./dist/appsscript.json", "./public/appsscript.json");
-    fs.unlinkSync("./dist/appsscript.json");
+    fs.moveSync("./dist/appsscript.json", "./public/appsscript.json");
   }
   if (fs.existsSync("./dist/.clasp.json")) {
     const claspJson = JSON.parse(fs.readFileSync("./dist/.clasp.json", "utf-8"));
     claspJson.rootDir = "./dist";
-    fs.writeFileSync("./.clasp.json", JSON.stringify(claspJson, null, 2));
-    fs.unlinkSync("./dist/.clasp.json");
+    fs.moveSync("./dist/.clasp.json", "./.clasp.json");
     return claspJson;
   }
 };
@@ -85,12 +83,12 @@ if (!claspJson) {
   fs.writeFileSync("./.clasp-prod.json", JSON.stringify(claspJson, null, 2));
   console.log("Project prepared.");
   console.log(`Usage:
-  bun run build            // build project
-  bun run push             // push project to Google Apps Script using .clasp-dev.json
-  bun run push:prod        // push project to Google Apps Script using .clasp-prod.json
-  bun run deploy           // deploy project using .clasp-dev.json
-  bun run deploy:prod      // deploy project using .clasp-prod.json
-  bun run open             // open project in browser
-  bun run open:prod        // open project in browser(in .clasp-prod.json)
+  bun run build            # build project
+  bun run push             # push project to Google Apps Script using .clasp-dev.json
+  bun run push:prod        # push project to Google Apps Script using .clasp-prod.json
+  bun run deploy           # deploy project using .clasp-dev.json
+  bun run deploy:prod      # deploy project using .clasp-prod.json
+  bun run open             # open project in browser
+  bun run open:prod        # open project in browser(in .clasp-prod.json)
 `);
 }
