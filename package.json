@@ -3,13 +3,23 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run ./bin/builder/cli.ts src/index.ts dist/index.js",
-    "login": "bunx clasp login"
+    "build": "bun run ./bin/build.ts src/index.ts dist/index.js",
+    "init": "bun run ./bin/init/index.ts",
+    "deploy": "bun run ./bin/deploy.ts",
+    "deploy:prod": "bun run ./bin/deploy.ts --prod",
+    "push": "bun run ./bin/push.ts",
+    "push:prod": "bun run ./bin/push.ts --prod",
+    "open": "bunx clasp open",
+    "open:prod": "bunx clasp open --prod"
+  },
+  "bun-create": {
+    "postinstall": "bun run ./bin/init/index.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
     "@google/clasp": "^2.4.2",
-    "@types/bun": "^1.0.3",
+    "@inquirer/prompts": "^3.3.0",
+    "@types/bun": "^1.0.4",
     "@types/fs-extra": "^11.0.4",
     "@types/google-apps-script": "^1.0.78",
     "bun-types": "latest",

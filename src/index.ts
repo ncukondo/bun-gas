@@ -5,6 +5,10 @@ import { calc } from "./module-sample";
 
 const constantValueSample = "sample";
 
+/**!
+ * appendToRow
+ * @param row
+ */
 const appendToRow = (row: string[]) => {
   const sheet = SpreadsheetApp.getActiveSheet();
   sheet.appendRow(row);

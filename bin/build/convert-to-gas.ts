@@ -4,7 +4,6 @@ import path from "path";
 import { ensureDirSync } from "fs-extra";
 
 const build = async (filename: string, name: string) => {
-  console.log(filename);
   const res = await buildUsingVite({
     root: process.cwd(),
     build: {
