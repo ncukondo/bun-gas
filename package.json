@@ -9,6 +9,7 @@
     "url": "https://github.com/ncukondo/bun-gas.git"
   },
   "homepage": "https://github.com/ncukondo/bun-gas",
+  "type": "module",
   "module": "index.ts",
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
@@ -36,7 +37,5 @@
     "push:prod": "bun run ./bin/push.ts --prod",
     "open": "bunx clasp open",
     "open:prod": "bunx clasp open --prod"
-  },
-  "type": "module",
-  "name": "bun-gas"
+  }
 }
