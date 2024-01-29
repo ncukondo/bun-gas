@@ -1,5 +1,4 @@
 import fs from "fs-extra";
-import { $ } from "bun";
 import { convertAndWriteGoogleAppsScript } from "./build/convert-to-gas";
 import packageInfo from "../package.json";
 import path from "path";
