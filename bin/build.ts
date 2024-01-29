@@ -3,6 +3,7 @@ import { $ } from "bun";
 import { convertAndWriteGoogleAppsScript } from "./build/convert-to-gas";
 import packageInfo from "../package.json";
 import path from "path";
+import { makeBanner } from "./build/banner";
 
 const packageInfoToGlobalName = (packageInfo: { name: string }) => {
   return packageInfo.name.split("/").at(-1) || "";
@@ -26,7 +27,17 @@ if (!outputFile) {
   process.exit(1);
 }
 
+const banner = makeBanner(packageInfo, [
+  "name",
+  "version",
+  "author",
+  "license",
+  "homepage",
+  "description",
+  "repository",
+]);
+
 fs.ensureDirSync("./dist");
 fs.emptyDirSync("./dist");
 fs.copySync("./public", "./dist");
-await convertAndWriteGoogleAppsScript(inputFile, globalName, outputFile);
+await convertAndWriteGoogleAppsScript(inputFile, globalName, outputFile, banner);

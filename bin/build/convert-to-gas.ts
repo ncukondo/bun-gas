@@ -42,8 +42,9 @@ const convertAndWriteGoogleAppsScript = async (
   filename: string,
   globalName: string,
   output: string,
+  banner = "",
 ) => {
-  const code = await convertToGoogleAppsScript(filename, globalName);
+  const code = banner + (await convertToGoogleAppsScript(filename, globalName));
   const outputDir = path.dirname(output);
   ensureDirSync(outputDir);
   fs.writeFileSync(output, code);

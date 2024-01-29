@@ -1,5 +1,14 @@
 {
   "name": "bun-gas",
+  "version": "0.0.1",
+  "description": "Bun template for Google Apps Script",
+  "author": "ncukondo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ncukondo/bun-gas.git"
+  },
+  "homepage": "https://github.com/ncukondo/bun-gas",
   "module": "index.ts",
   "type": "module",
   "scripts": {
