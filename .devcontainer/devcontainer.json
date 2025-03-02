@@ -1,0 +1,15 @@
+{
+  "name": "Bun GAS Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "postCreateCommand": "bun install",
+  "remoteUser": "dev"
+}
