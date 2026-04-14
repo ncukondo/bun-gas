@@ -4,9 +4,10 @@ import path from "path";
 import { $ } from "bun";
 import { ensureDirSync } from "fs-extra";
 
-const clasprcPath = path.join(process.env.HOME || process.env.USERPROFILE || "", ".clasprc.json");
-
-const checkLogin = () => fs.existsSync(clasprcPath);
+const checkLogin = async () => {
+  const result = await $`bunx clasp show-authorized-user`.nothrow().quiet();
+  return result.exitCode === 0;
+};
 
 const getProjectName = async () => {
   const defaultProjectName = path.basename(process.cwd());
@@ -17,7 +18,7 @@ const getProjectName = async () => {
 const getProjectJson = async (defaultProjectName = "") => {
   const existingProjectId = await question("Project ID(optional)");
   if (existingProjectId) return { scriptId: existingProjectId, rootDir: "./dist" };
-  const choice = (await select("What kind of project would you create?", {
+  const choice = await select("What kind of project would you create?", {
     choices: [
       { label: "standalone", value: "standalone" },
       { label: "bound to a Google Sheet", value: "sheets" },
@@ -27,8 +28,8 @@ const getProjectJson = async (defaultProjectName = "") => {
       { label: "webapp", value: "webapp" },
       { label: "API executable", value: "api" },
       { label: "Do not create project(specify later).", value: "no" },
-    ] as const,
-  })) as unknown as string;
+    ],
+  });
   if (choice === "no") return null;
   const projectName = await question("Project name", { defaultValue: defaultProjectName });
   ensureDirSync("./dist");
@@ -45,9 +46,9 @@ const getProjectJson = async (defaultProjectName = "") => {
 };
 
 // login to clasp in case of not logged in
-if (!checkLogin()) {
+if (!(await checkLogin())) {
   await $`bunx clasp login`;
-  if (!checkLogin()) {
+  if (!(await checkLogin())) {
     console.log("\nClasp login failed\n\n");
     console.log(
       "1. Please turn on Google Apps Script API(go https://script.google.com/home/usersettings ).",
